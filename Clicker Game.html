@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<head>
+    <title>snowball fight</title>
+    <style>
+        body {
+            background-image: url("https://static.vecteezy.com/system/resources/thumbnails/004/845/056/original/snow-falling-with-snowman-christmas-background-free-video.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    </style>
+    <script>
+        var clicker = {
+            snowballs:0,
+            upgrades: {
+                recuit_neighbor_kids:{
+                    amount:0,
+                    cost:10,
+                    sps:1,
+                    name:"recruit neighbor kids<br>_._&nbsp&nbsp&nbsp&nbsp&nbsp_._<br>///\\&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp//\\\<br>( . .&nbsp&nbsp&nbsp| |&nbsp&nbsp&nbsp. . )<br>\\_-_/_\\_=_/<br>/_) &nbsp&nbsp `\\\_| &nbsp&nbsp&nbsp|\\<br>&nbsp/_|&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp|_\|&nbsp&nbsp&nbsp&nbsp&nbsp|_|<br>\\___// |---|/<br>|&nbsp&nbsp&nbsp&nbsp&nbsp|&nbsp&nbsp|&nbsp&nbsp|&nbsp&nbsp|<br>|&nbsp&nbsp|&nbsp&nbsp|&nbsp&nbsp|&nbsp&nbsp|&nbsp&nbsp|<br>|_|_|&nbsp&nbsp&nbsp|_|_|<br>(__/__)(__\\__)"
+                },
+                buy_snowball_scoopers:{
+                    amount:0,
+                    cost:100,
+                    sps:10,
+                    name:"buy snowball scoopers"
+                },
+                build_snowball_forts:{
+                    amount:0,
+                    cost:1000,
+                    sps:100,
+                    name:"build snowball forts"
+                },
+                invent_snowman_catapults:{
+                    amount:0,
+                    cost:10000,
+                    sps:1000,
+                    name:"invent snowman catapults"
+                },
+                clone_buddy_the_elf:{
+                    amount:0,
+                    cost:100000,
+                    sps:10000,
+                    name:"clone buddy the elf"
+                },
+                laser_guided_tactical_snow_nukes:{
+                    amount:0,
+                    cost:1000000,
+                    sps:100000,
+                    name:"laser guided tactical snow nukes"
+                },
+                frozen_earth_policy:{
+                    amount:0,
+                    cost:10000000,
+                    sps:1000000,
+                    name:"frozen earth policy"
+                },
+                extinction_event_ice_age:{
+                    amount:0,
+                    cost:100000000,
+                    sps:1000000000,
+                    name:"extinction event ice age"
+                },
+
+            }
+        };
+        function thing_clicked(thing){
+            if(clicker.upgrades[thing].cost <= clicker.snowballs){
+            clicker.snowballs-= clicker.upgrades[thing].cost;
+            clicker.upgrades[thing].amount++
+            clicker.upgrades[thing].cost += Math.round(clicker.upgrades[thing].cost*0.15);
+            update_upgrades();
+            }
+        }
+        function update_upgrades(){
+            document.querySelector("#upgrades").innerHTML="";
+            for(i in clicker.upgrades){
+                document.querySelector("#upgrades").innerHTML+= `<br> <br> <button onclick="thing_clicked('${i}')">${clicker.upgrades[i].name}</button> you have ${clicker.upgrades[i].amount}. cost: ${clicker.upgrades[i].cost}`;
+            }
+        }
+        function updatecount(){
+            update_upgrades();
+            setInterval(() => {
+            for(i in clicker.upgrades){
+                clicker.snowballs+=clicker.upgrades[i].amount*clicker.upgrades[i].sps/20
+            }
+            document.querySelector("#snowballs").innerHTML = "you have "+String(clicker.snowballs).split(".")[0]+" snowballs"
+            },50);
+        }
+    </script>
+</head>
+<body onload="updatecount()">
+    <h1>it's a snowball fight!</h1>
+    <h2 id="snowballs">you have 0 snowballs</h2>
+    <button onclick="clicker.snowballs++">make 1 snowball</button>
+    <div id="upgrades"></div>
+</body>
